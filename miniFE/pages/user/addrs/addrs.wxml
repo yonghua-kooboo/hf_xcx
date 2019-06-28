@@ -1,0 +1,10 @@
+<view class="user_addr_manage">
+    <view class="user_addr_title">【地址管理】</view>
+    <block wx:for="{{addrDate}}" wx:key="item.id">
+      <view class="user_addr_item">
+          <text class="addr_sub">{{item}}</text>
+          <view class="addr_edit" bindtap="editAddr" data-addrid="{{index+1}}"></view>
+      </view> 
+    </block>
+    <navigator url="../edit_addr/edit_addr" >新增地址 +</navigator>
+ </view>

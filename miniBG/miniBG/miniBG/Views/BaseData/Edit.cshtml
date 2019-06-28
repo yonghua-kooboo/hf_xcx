@@ -1,0 +1,10 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.Edit.cshtml";
+}
+@model BaseDataVM
+@{ await Html.RenderPartialAsync("_MessageBar");}
+<div class="portlet">
+    <div class="portlet-body form">
+        @{ await Html.RenderPartialAsync("_Form"); }
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger display-hide" style="display: block;">
+        <button class="close" data-close="alert"></button>
+        @Html.Raw(TempData["error"])
+    </div>
+}
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success display-hide" style="display: block;">
+        <button class="close" data-close="alert"></button>
+        @Html.Raw(TempData["success"])
+    </div>
+}

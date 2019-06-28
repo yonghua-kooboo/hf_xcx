@@ -1,0 +1,30 @@
+<!--user.wxml-->
+
+<view class="container">
+  <view class="user_base_info">
+    <view class="user_avatar">
+        <image src="{{userInfo.avatarUrl}}"></image>
+    </view>
+    <view class="user_info">
+      <text>
+        昵称：{{userInfo.nickName}}
+        姓名：{{userData.name}}
+        电话：{{userData.phone}}
+      </text>
+    </view>
+  </view> 
+
+  <view class='service'>
+    <view class='service-title'>我的服务</view>
+    <view class='icons'>
+      <block wx:for="{{list}}" wx:key="{{index}}">
+        <view class='user-item' bindtap='toMyMore' data-url='{{item.url}}'>
+          <button open-type="{{item.url}}" class='button'>
+            <image src='{{item.img}}' class='list-icon'></image>
+            <view class='list-title'>{{item.title}}</view>
+          </button>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

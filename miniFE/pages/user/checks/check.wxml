@@ -1,0 +1,9 @@
+<view class="user_addr_manage">
+    <view class="user_addr_title">【测试内容】</view>
+    <block wx:for="{{addrDate}}" wx:key="item.id">
+      <view class="user_addr_item">
+          <text class="addr_sub">{{item}}</text>
+          <view class="addr_edit" bindtap="editAddr" data-addrid="{{index+1}}"></view>
+      </view> 
+    </block>
+ </view>

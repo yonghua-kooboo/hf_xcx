@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mini.Bll\Mini.Bll.csproj" />
+    <ProjectReference Include="..\Mini.Dal\Mini.Dal.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="Views\BaseData\Add.cshtml" />
+    <None Include="Views\BaseData\Edit.cshtml" />
+    <None Include="Views\BaseData\Index.cshtml" />
+    <None Include="Views\BaseData\_Form.cshtml" />
+  </ItemGroup>
+
+</Project>
