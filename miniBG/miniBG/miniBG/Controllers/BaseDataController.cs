@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Mini.Bll;
 using Mini.Interfaces;
+using Mini.Interfaces.Interfaces;
 using Mini.Interfaces.Models;
 using miniBG.Models;
 
 namespace miniBG.Controllers
 {
-    public class BaseDataController : BaseController
+    public class BaseDataController : FileUploadController
     {
         private readonly IBaseDataService baseDataService;
 
@@ -25,6 +27,11 @@ namespace miniBG.Controllers
 
         public IActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult Get()
+        {
             var list = new List<BaseDataVM>();
             try
             {
@@ -33,7 +40,7 @@ namespace miniBG.Controllers
                 {
                     ID = item.ID,
                     CreateTime = item.CreateTime,
-                    IsDefault = item.IsDefault,
+                    IsDefault = Convert.ToBoolean(item.IsDefault),
                     Key = item.Key,
                     Type = item.Type,
                     UpdateTime = item.UpdateTime,
@@ -41,12 +48,13 @@ namespace miniBG.Controllers
 
                 }).ToList();
             }
-            catch (Exception ex)
+            catch (DbException ex)
             {
-                ViewData["error"] = ex.Message;
+                TempData["error"] = ex.Message;
             }
+            var result = new { rows = list };
 
-            return View(list);
+            return Json(result);
         }
 
         [HttpGet]
@@ -69,22 +77,22 @@ namespace miniBG.Controllers
 
                     await baseDataService.AddAsync(new BaseDataDto
                     {
-                        ID = baseData.ID,
+                        ID = Guid.NewGuid(),
                         CreateTime = DateTime.Now,
                         Icon = baseData.Icon,
-                        IsDefault = baseData.IsDefault,
+                        IsDefault = Convert.ToString(baseData.IsDefault),
                         Key = baseData.Key,
                         Type = baseData.Type,
                         UpdateTime = DateTime.Now,
                         Value = baseData.Value
                     });
 
-                    return View("Index");
+                    return RedirectToAction("Index", "BaseData");
                 }
             }
             catch (Exception ex)
             {
-                ViewData["error"] = ex.Message;
+                TempData["error"] = ex.Message;
             }
 
             return View(baseData);
@@ -97,14 +105,25 @@ namespace miniBG.Controllers
             {
                 var model = baseDataService.GetByID(id);
 
-                return View(model);
+                return View(new BaseDataVM
+                {
+                    ID = model.ID,
+                    CreateTime = DateTime.Now,
+                    Icon = model.Icon,
+                    IsDefault = Convert.ToBoolean(model.IsDefault),
+                    Key = model.Key,
+                    Type = model.Type,
+                    UpdateTime = DateTime.Now,
+                    Value = model.Value,
+                    IconData = ImgToBase64String(model.Icon)
+                });
             }
             catch (Exception ex)
             {
-                ViewData["error"] = ex.Message;
+                TempData["error"] = ex.Message;
             }
 
-            return View("Index");
+            return RedirectToAction("Index", "BaseData");
         }
 
         [HttpPost]
@@ -124,7 +143,7 @@ namespace miniBG.Controllers
                         ID = baseData.ID,
                         CreateTime = DateTime.Now,
                         Icon = baseData.Icon,
-                        IsDefault = baseData.IsDefault,
+                        IsDefault = Convert.ToString(baseData.IsDefault),
                         Key = baseData.Key,
                         Type = baseData.Type,
                         UpdateTime = DateTime.Now,
@@ -136,10 +155,25 @@ namespace miniBG.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["error"] = ex.Message;
+                TempData["error"] = ex.Message;
             }
 
             return View(baseData);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+               await baseDataService.RemoveAsync(Guid.Parse(id));
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+            }
+
+            return RedirectToAction("Index", "BaseData");
         }
     }
 }

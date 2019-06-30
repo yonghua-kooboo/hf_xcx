@@ -18,9 +18,11 @@ namespace miniBG.Models
         [Required]
         public string Value { get; set; }
 
-        public string IsDefault { get; set; }
+        public bool IsDefault { get; set; }
 
         [DataType(DataType.ImageUrl)]
         public string Icon { get; set; }
+
+        public string IconData { get; set; }
     }
 }

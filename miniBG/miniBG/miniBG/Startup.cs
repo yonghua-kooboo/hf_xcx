@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,6 +39,20 @@ namespace miniBG
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             DIConfig.RegisterComponents(services);
+            services.AddAuthentication(b =>
+            {
+                b.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                b.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                b.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(b =>
+            {
+                b.LoginPath = "/login/index";
+                b.Cookie.Name = "login_session_id";
+                b.Cookie.Path = "/";
+                b.Cookie.HttpOnly = true;
+                b.Cookie.Expiration = new TimeSpan(0, 30, 30);
+                b.ExpireTimeSpan = new TimeSpan(0, 30, 30);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +72,7 @@ namespace miniBG
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

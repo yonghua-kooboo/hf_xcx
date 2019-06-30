@@ -4,6 +4,10 @@
 @model BaseDataVM
 @{ await Html.RenderPartialAsync("_MessageBar");}
 <div class="portlet">
+    <ul class="breadcrumb">
+        <li><a href="#">BaseData</a></li>
+        <li class="active"><a href="#">Modify</a></li>
+    </ul>
     <div class="portlet-body form">
         @{ await Html.RenderPartialAsync("_Form"); }
     </div>

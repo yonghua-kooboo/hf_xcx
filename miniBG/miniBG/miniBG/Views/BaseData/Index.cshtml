@@ -1,39 +1,77 @@
 ﻿@model List<BaseDataVM>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.2/dist/bootstrap-table.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://unpkg.com/bootstrap-table@1.15.2/dist/bootstrap-table.min.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="https://unpkg.com/bootstrap-table@1.15.2/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+@{ await Html.RenderPartialAsync("_MessageBar"); }
 <div class="item">
-    @{ await Html.RenderPartialAsync("_MessageBar"); }
     <div id="toolbar" class="btn-group">
-        <a class="btn btn-default" href="@Url.Action("Add", "BaseData")">Add</a>
+        <button id="btn_add" type="button" class="btn btn-default" title="add" onclick="addView()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true">add</span>
+        </button>
     </div>
-    <div class="item-responsive ">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Key</th>
-                    <th>Value</th>
-                    <th>IsDefault</th>
-                    <th>Edit/Delete</th>
-                </tr>
-            </thead><!--/thead-->
-            <tbody>
-                @if (Model != null && Model.Count > 0)
-                {
-                    foreach (var it in Model)
-                    {
-                        <tr>
-                            <td>@it.Type</td>
-                            <td>@it.Key</td>
-                            <td>@it.Value</td>
-                            <td>@it.IsDefault</td>
-                            <td>
-                                <a href="@Url.Action("Edit", "BaseData", new { id = it.ID})"><span class="item-status edit">Edit</span></a>
-                                <br />
-                                <a href="@Url.Action("Delete", "BaseData", new { id = it.ID})"><span class="item-status delete">Delete</span></a>
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody><!--/tbody-->
-        </table><!--/.table-->
-    </div><!--/.table-responsive-->
-</div><!--/.item-->
+    <table id="table"></table>
+</div>
+
+<script type="text/javascript">
+    var $table = $('#table').bootstrapTable({
+        url: '/BaseData/Get?' + Math.random(),
+        toolbar: "#toolbar",
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        uniqueId: "ID",
+        pagination: false, // 是否分页
+        sortable: false, // 是否启用排序
+        columns: [{
+            field: 'id',
+            title: 'id',
+            visible: false
+        },
+        {
+            field: 'type',
+            title: 'type'
+        },
+        {
+            field: 'key',
+            title: 'key'
+        },
+            {
+                field: 'value',
+                title: 'value'
+            },
+        {
+            field: 'id',
+            title: 'Operate',
+            width: 120,
+            align: 'center',
+            valign: 'middle',
+            formatter: function (value, row, index) {
+                var id = value;
+                var result = "";
+                result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-search'></span></a>";
+                result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+                result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteByIds('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+                return result;
+            },
+        }
+        ]
+    });
+
+    function DeleteByIds(id) {
+        $.ajax('/BaseData/Delete?id=' + id, {
+            success() {
+                $('#table').bootstrapTable("refresh");
+            }
+        })
+    }
+
+    function EditViewById(id) {
+        window.location.href = "/BaseData/Edit?id=" + id;
+    }
+
+    function addView() {
+        window.location.href = "/BaseData/Add";
+    }
+</script>

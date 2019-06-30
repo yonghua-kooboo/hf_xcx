@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mini.Interfaces", "Mini.Int
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mini.Dal", "Mini.Dal\Mini.Dal.csproj", "{82B67B44-75DD-4730-BFA2-89248AFCDBE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mini.Migrations", "Mini.Migrations\Mini.Migrations.csproj", "{F00B5D00-C7CE-4373-B9DD-6980ED1E9A0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mini.Migrations", "Mini.Migrations\Mini.Migrations.csproj", "{F00B5D00-C7CE-4373-B9DD-6980ED1E9A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

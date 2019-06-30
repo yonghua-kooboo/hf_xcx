@@ -1,5 +1,6 @@
 ﻿using Mini.Data;
 using Mini.Interfaces;
+using Mini.Interfaces.Interfaces;
 using Mini.Interfaces.Models;
 using System;
 using System.Collections.Generic;
@@ -64,10 +65,9 @@ namespace Mini.Bll
 
         public List<BaseDataDto> GetAlls()
         {
-            var query = dataProvider.GetAlls();
+            var query = dataProvider.GetAlls().ToList();
 
             return query
-                .ToList()
                 .Select(item => new BaseDataDto
                 {
                     ID = item.ID,

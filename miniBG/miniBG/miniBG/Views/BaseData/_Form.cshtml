@@ -1,57 +1,63 @@
 ﻿
 @model BaseDataVM
-<form action="" id="editform" class="form-horizontal" method="post">
-    <div class="form-body">
-        <h3 class="form-section">&nbsp;</h3>
-        <div class="alert alert-danger display-hide">
-            <button class="close" data-close="alert"></button>
-            You have some form errors. Please check below.
-        </div>
+
+<div>
+    <form role="form" method="post" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
         @Html.HiddenFor(o => o.ID)
         @Html.ValidationSummary(true)
-        @if (!string.IsNullOrEmpty(Model.Type))
-        {
-            @Html.TextBoxFor(o => o.Type, new { @readonly = "readonly" })
-        }
-        else
-        {
-            @Html.EditorFor(o => o.Type)
-        }
-        @Html.EditorFor(o => o.Key)
-        @Html.EditorFor(m => m.Value)
-
-        @if (Model.Type == "PRODUCT_TYPE")
-        {
-            if (string.IsNullOrEmpty(Model.Icon))
-            {
-                <img id="IconPreview" src="@Model.Icon" />
-                <input type="hidden" id="Icon" name="Icon" value="@Model.Icon"/>
-            }
-           <input type="file" id="file" name="file" onchange="change()" />
-        }
         @Html.HiddenFor(m => m.CreateTime)
         @Html.HiddenFor(m => m.UpdateTime)
-    </div>
-    <div class="form-actions fluid">
-        <div class="col-md-offset-3 col-md-9">
-            <button type="submit" class="btn btn-success" id="Submit">Submit</button>
-            <a href="@Url.Action("Index", "BaseData")" class="btn btn-default">Cancel</a>
+        <div class="form-group">
+            <label for="type">type</label>
+            @Html.TextBoxFor(item => item.Type, new { @class = "form-control col-6" })
+            @Html.ValidationMessageFor(m => m.Type)
         </div>
-    </div>
-</form>
+        <div class="form-group">
+            <label for="key">key</label>
+            @Html.TextBoxFor(item => item.Key, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Key)
+        </div>
+        <div class="form-group col-6">
+            <label for="value">value</label>
+            @Html.TextBoxFor(item => item.Value, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Value)
+        </div>
+        @if (Model.Type == "PRODUCT_TYPE")
+        {
+        <div class="form-group">
+            <label for="Icon">Icon</label>
+            @if (!string.IsNullOrEmpty(Model.Icon))
+            {
+                @Html.HiddenFor(item => item.Icon)
+                @Html.HiddenFor(item => item.IconData)
+                <img id="IconPreview" src="@Model.IconData" height="60" width="60"/>
+            }
+            else
+            {
+                <img id="IconPreview" src="@Model.IconData" height="60" width="60" style="display:none" />
+            }
+            <input type="file" id="file" name="file" onchange="change()" />
+        </div>
+        }
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(item => item.IsDefault) isDefault
+            </label>
+        </div>
+        <button type="submit" class="btn btn-default">submit</button>
+        <a href="@Url.Action("Index", "BaseData")" class="btn btn-default">Cancel</a>
+    </form>
+</div>
 
 <script type="text/javascript">
     function change() {
         var fileObject = document.getElementById('file')
         if (fileObject.files.length) {
-            var reader = new FileReader()
-            reader.readAsText(files[0], "UTF-8")
-            reader.onload = function (evt) {
-                var img = document.getElementById("IconPreview")
-                var result = evt.target.result
-                img.src = result
-            }
+            var url = window.URL.createObjectURL(fileObject.files[0])
+            var img = document.getElementById("IconPreview")
+            img.src = url
+            img.style.display = "inline"
         }
     }
 </script>

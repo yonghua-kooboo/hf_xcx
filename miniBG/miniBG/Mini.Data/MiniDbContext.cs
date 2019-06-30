@@ -39,7 +39,7 @@ namespace Mini.Data
         {
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseMySQL(ConfigurationManager.ConnectionStrings["Mini_Db"].ConnectionString);
+                .UseMySQL("server=localhost;port=3306;uid=root;pwd=root;database=mini_db;charset=utf8;sslMode=None");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mini.Dal\Mini.Dal.csproj" />
     <ProjectReference Include="..\Mini.Data\Mini.Data.csproj" />
     <ProjectReference Include="..\Mini.Interfaces\Mini.Interfaces.csproj" />
   </ItemGroup>

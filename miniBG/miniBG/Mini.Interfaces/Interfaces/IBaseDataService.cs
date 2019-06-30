@@ -1,21 +1,8 @@
 ﻿using Mini.Interfaces.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Mini.Interfaces
+namespace Mini.Interfaces.Interfaces
 {
-    public interface IBaseDataService
+    public interface IBaseDataService : IServiceBase<BaseDataDto>
     {
-        Task AddAsync(BaseDataDto baseData);
-
-        Task UpdateAsync(BaseDataDto baseData);
-
-        Task RemoveAsync(Guid id);
-
-        List<BaseDataDto> GetAlls();
-
-        BaseDataDto GetByID(Guid id);
     }
 }

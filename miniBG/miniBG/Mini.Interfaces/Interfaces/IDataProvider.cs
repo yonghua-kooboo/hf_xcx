@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Mini.Interfaces
@@ -16,5 +17,7 @@ namespace Mini.Interfaces
         IQueryable<T> GetAlls();
 
         T GetByID(Guid id);
+
+        IQueryable<T> GetByLamada(Expression<Func<T, bool>> func);
     }
 }

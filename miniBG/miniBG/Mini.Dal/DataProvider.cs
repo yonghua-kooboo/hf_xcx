@@ -4,6 +4,7 @@ using Mini.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Mini.Dal
@@ -19,7 +20,7 @@ namespace Mini.Dal
 
         public async Task AddAsync(T entity)
         {
-            await dbContext.Set<T>().AddAsync(entity);
+            dbContext.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await dbContext.SaveChangesAsync();
         }
 
@@ -43,6 +44,11 @@ namespace Mini.Dal
         public T GetByID(Guid id)
         {
            return dbContext.Set<T>().Where(item => item.ID == id).FirstOrDefault();
+        }
+
+        public IQueryable<T> GetByLamada(Expression<Func<T, bool>> func)
+        {
+           return dbContext.Set<T>().Where(func).AsQueryable();
         }
     }
 }

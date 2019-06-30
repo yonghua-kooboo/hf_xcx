@@ -2,70 +2,26 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<!-- navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="brand">
-        <a href="index.html">
-            Dash<span>Loon</span>
-        </a>
-    </div><!--/.brand -->
-    <div class="container-fluid">
-        <div class="navbar-btn">
-            <button type="button" class="btn-toggle-fullwidth">
-                <i class="lnr lnr-arrow-left-circle"></i>
-            </button>
-        </div><!--/.navbar-btn -->
-        <form class="navbar-form navbar-left">
-            <div class="search-group">
-                <button type="button"><i data-feather="search"></i></button>
-                <input type="text" value="" placeholder="Search..">
-            </div><!--/.search-group -->
-        </form><!--/form -->
-        <div class="navbar-menu">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-                        <i data-feather="bell"></i>
-                        <span class="badge badge-bg-1">2</span>
-                    </a>
-                    <ul class="dropdown-menu notifications">
-                        <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-                        <li><a href="#" class="more">See all notifications</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-                        <i data-feather="mail"></i>
-                        <span class="badge badge-bg-1">3</span>
-                    </a>
-                    <ul class="dropdown-menu notifications">
-                        <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-                        <li><a href="#" class="more">See all notifications</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="assets/images/parson.png" class="img-circle" alt="parson-img">
-                        <i class="icon-submenu fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-                        <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-                        <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-                        <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-                    </ul>
-                </li>
-            </ul>
+<nav class="navbar navbar-default no-margin">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header fixed-brand">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
+            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+        </button>
+        <a class="navbar-brand" href="#"><i class="fa fa-rocket fa-4"></i>Mini Background</a>
+    </div>
+    <!-- navbar-header-->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2">
+                    <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                </button>
+            </li>
+        </ul>
+        <div style="float:right">
+            <a class="navbar-brand" href="@Url.Action("Logout", "Login")"><i class="fa fa-rocket fa-4"></i>Logout</a>
         </div>
-    </div><!--/.container-fluid -->
-
-</nav><!--/nav -->
-<!-- END NAVBAR -->
+    </div>
+    <!-- bs-example-navbar-collapse-1 -->
+</nav>
